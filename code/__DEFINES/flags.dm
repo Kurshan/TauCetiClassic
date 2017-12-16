@@ -92,7 +92,6 @@
 #define SLOT_TWOEARS      8192
 #define SLOT_TIE         16384
 
-//Filters for holomap
 #define HOLOMAP_CUSTOM 1
 #define HOLOMAP_DEATHSQUAD 2
 #define HOLOMAP_ERT 3
@@ -100,3 +99,4 @@
 #define HOLOMAP_ELITESYNDIE 5
 #define HOLOMAP_VOX 6
 #define HOLOMAP_EXODUS 7
+

@@ -12,7 +12,7 @@
 			HOLOMAP_EXODUS
 			)
 
-/proc/generateHoloMap(var/icon/canvas, var/filter)
+/proc/generateHoloMap(var/icon/canvas)
 	canvas = icon('icons/canvas.dmi', "blank")
 	for(var/i = 1 to ((2*world.view +1)*32))
 		for(var/r = 1 to ((2 * world.view +1)*32))

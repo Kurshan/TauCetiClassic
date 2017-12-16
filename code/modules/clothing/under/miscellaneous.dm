@@ -737,4 +737,3 @@
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
 	item_color = "deathsquad"
-	flags = ONESIZEFITSALL
