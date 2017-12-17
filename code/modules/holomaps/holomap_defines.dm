@@ -1,0 +1,1 @@
+var/list/deathsquad_helmets = list()

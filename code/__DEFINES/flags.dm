@@ -91,3 +91,12 @@
 #define SLOT_DENYPOCKET   4096    // This is to deny items with a w_class of 2 or 1 to fit in pockets.
 #define SLOT_TWOEARS      8192
 #define SLOT_TIE         16384
+
+#define HOLOMAP_CUSTOM 1
+#define HOLOMAP_DEATHSQUAD 2
+#define HOLOMAP_ERT 3
+#define HOLOMAP_NUKE 4
+#define HOLOMAP_ELITESYNDIE 5
+#define HOLOMAP_VOX 6
+#define HOLOMAP_EXODUS 7
+
