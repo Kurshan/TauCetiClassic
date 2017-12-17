@@ -12,6 +12,7 @@
 
 /datum/holomap_interface/Destroy()
 	QDEL_NULL(holder)
+	return ..()
 
 /datum/holomap_interface/process()
 	update_holomap()
