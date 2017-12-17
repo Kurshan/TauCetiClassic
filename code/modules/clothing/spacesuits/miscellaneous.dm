@@ -4,81 +4,31 @@
 	desc = "That's not red paint. That's real blood."
 	icon_state = "deathsquad"
 	item_state = "deathsquad"
+	action_button_name = "Toggle Holo Map"
 	armor = list(melee = 65, bullet = 40, laser = 35,energy = 20, bomb = 30, bio = 30, rad = 30)
-	var/holofilter = HOLOMAP_DEATHSQUAD
-	var/datum/holomap_datum/holodatum = null
-	var/list/holomap_images = list()
-	var/mob/activator = null
+	var/datum/holomap_interface/deathsquad/holo = null
+	var/on = FALSE
 
 /obj/item/clothing/head/helmet/space/deathsquad/atom_init()
 	deathsquad_helmets += src
-	holodatum = new /datum/holomap_datum
-	..()
+	holo = new(src)
+	. = ..()
 
 /obj/item/clothing/head/helmet/space/deathsquad/Destroy()
 	deathsquad_helmets -= src
-	..()
+	return ..()
 
-/obj/item/clothing/head/helmet/space/deathsquad/verb/activate_holomap(mob/user = usr)
-	//if(user.mind.special_role = "Death Commando") //People, who found deathsquad helmets in junk, should not see real deathsquad.
-	holodatum.activator = user
-	holodatum.holomap_filter = holofilter
-	START_PROCESSING(SSobj, holodatum)
-//	else
-	//	to_chat(user, "<span class ='notice'> You try to activate the holomap, but hotning happens. Perhaps it is broken?</span>")
+/obj/item/clothing/head/helmet/space/deathsquad/ui_action_click()
+	if(on)
+		holo.deactivate_holomap()
+	else
+		holo.activate(usr)
+	on = !on
 
-/*/obj/item/clothing/head/helmet/space/deathsquad/process()
-	if(!activator.client)
-		return
-	activator.client.images -= holomap_images
-	holomap_images.len = 0
-	var/turf/moblocation = get_turf(src)
-	if(!moblocation)
-		return
-	var/image/hmap = image(generateHoloMap()) //Getting map image
-	hmap.layer = HUD_LAYER
-	hmap.plane = HUD_PLANE
-	hmap.loc = activator.hud_used.holomap_obj
-	hmap.pixel_x = activator.client.view*WORLD_ICON_SIZE/2
-	hmap.pixel_y = activator.client.view*WORLD_ICON_SIZE/2
-	hmap.color = "#0B74B4"
-	holomap_images += hmap
-
-	switch(holofilter) //Adding squad icons
-		if("HOLOMAP_CUSTOM")
-			return
-		if("HOLOMAP_DEATHSQUAD")
-			for(var/obj/item/clothing/head/helmet/space/deathsquad/D in deathsquad_helmets)
-				var/image/mob_indicator = image('icons/holomap_markers.dmi', "you")
-				mob_indicator.plane = ABOVE_HUD_PLANE
-				mob_indicator.layer = ABOVE_HUD_LAYER
-				mob_indicator.loc = activator.hud_used.holomap_obj
-				var/turf/mob_location = get_turf(D)
-				if(mob_location == src)
-					mob_indicator = "you"
-				else if((mob_location.z == 1) && ishuman(mob_location.loc))
-					var/mob/living/carbon/human/H = D.loc
-					if(H.get_item_by_slot(slot_w_uniform) == D)
-						if(H.stat == DEAD)
-							mob_indicator = "ds3"
-						if(H.stat == UNCONSCIOUS || H.restrained())
-							mob_indicator = "ds2"
-						else
-							mob_indicator = "ds1"
-				mob_indicator.pixel_x = (mob_location.x-6+hmap.pixel_x)*PIXEL_MULTIPLIER
-				mob_indicator.pixel_y = (mob_location.y-6+hmap.pixel_x)*PIXEL_MULTIPLIER
-				holomap_images += hmap
-		if("HOLOMAP_ERT")
-			return
-		if("HOLOMAP_NUKE")
-			return
-		if("HOLOMAP_ELITESYNDIE")
-			return
-		if("HOLOMAP_VOX")
-			return
-		if("HOLOMAP_EXODUS")
-			return
-	activator.client.images |= holomap_images */
+/obj/item/clothing/head/helmet/space/deathsquad/dropped(mob/M)
+	holo.deactivate_holomap()
+	on = FALSE
+	return ..()
 
 /obj/item/clothing/head/helmet/space/deathsquad/beret
 	name = "officer's beret"
